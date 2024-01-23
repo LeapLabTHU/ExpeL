@@ -4,6 +4,7 @@
 
 
 ⚡ [AAAI 2024 *(Oral)*] Official implementation of the ExpeL Agent ⚡
+
 ~ by Andrew Zhao, Daniel Huang, Quentin Xu, Matthieu Lin, Yong-Jin Liu, Gao Huang ~
 
 
@@ -24,20 +25,26 @@
   <!-- Left Column - List -->
   <div style="flex: 1; padding-right: 1px;">
 
-1. [👋 Introduction](#👋-introduction)
-2. [🛠️ Installation](#🛠️-installation)
-  - [🌳 Environments](#🌳-environments)
-    - [🏠 ALFWorld](#🏠-alfworld)
-    - [🛒 Webshop](#🛒-webshop)
+[👋 Introduction](#-introduction)
 
-3. [🚀 Quick start](#🚀-quick-start)
-  - [**Experience Gathering**](#1-for-the-experience-gathering-stage)
-  - [**Insights Extraction**](#2-for-the-insights-extraction-stage)
-  - [**Evaluation**](#3-for-evaluation)
-4. [🫡 Cite us !](#🫡-cite-us)
-5. [💌 Contact us !](#💌-contact-us)
-6. [🏛️ License](#🏛️-license)
-7. [⚠️ Issues](#⚠️-issues)
+[🛠️ Installation](#-installation)
+
+- [🌳 Environments](#-environments)
+  - [🏠 ALFWorld](#-alfworld)
+  - [🛒 Webshop](#-webshop)
+
+[🚀 Quick start](#-quick-start)
+1. [Experience Gathering](#1-for-the-experience-gathering-stage)
+2. [Insights Extraction](#2-for-the-insights-extraction-stage)
+3. [Evaluation](#3-for-evaluation)
+
+[🫡 Cite us !](#-cite-us-)
+
+[💌 Contact us !](#-contact-us-)
+
+[🏛️ License](#-license)
+
+[⚠️ Issues](#-issues)
 
   </div>
 
@@ -52,13 +59,13 @@
 
 
 
-# 👋 Introduction
+## 👋 Introduction
 
 This repo is the official implementation of [Expel: LLM Agents are Experiential Learners](https://arxiv.org/pdf/2308.10144.pdf). 
 
 Our agent autonomously gathers experiences and extracts knowledge using natural language from a collection of training tasks. At inference, the agent recalls its extracted insights and past experiences to make informed decisions. Our empirical results highlight the robust learning efficacy of the ExpeL agent, indicating a consistent enhancement in its performance as it accumulates experiences.
 
-# 🛠️ Installation
+## 🛠️ Installation
 Python version : 3.9.17
 
 1. Create a virtual environment using [Anaconda](https://anaconda.org/anaconda/python) (or your favorite package manager), activate it, clone the repo and install the requirements.
@@ -255,7 +262,7 @@ This repository contains code for reproducing results. If you find this work use
 If you have any questions, feel free to contact [Andrew Zhao](mailto:zqc21@mails.tsinghua.edu.cn), [Daniel Huang](mailto:huang-jy22@mails.tsinghua.edu.cn) or [Quentin Xu](mailto:quentinxu1@gmail.com).
 
 
-## 🏛️ License
+## 🏛️ License 
 Check `LICENSE.md`
 
 ## ⚠️ Issues
