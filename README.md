@@ -25,20 +25,19 @@
   <div style="flex: 1; padding-right: 1px;">
 
 1. [👋 Introduction](#👋-introduction)
-2. [Project Overview](#project-overview)
-3. [🛠️ Installation](#🛠️-installation)
+2. [🛠️ Installation](#🛠️-installation)
   - [🌳 Environments](#🌳-environments)
     - [🏠 ALFWorld](#🏠-alfworld)
     - [🛒 Webshop](#🛒-webshop)
 
-4. [🚀 Quick start](#🚀-quick-start)
+3. [🚀 Quick start](#🚀-quick-start)
   - [**Experience Gathering**](#1-for-the-experience-gathering-stage)
   - [**Insights Extraction**](#2-for-the-insights-extraction-stage)
   - [**Evaluation**](#3-for-evaluation)
-5. [🫡 Cite us !](#🫡-cite-us)
-6. [💌 Contact us !](#💌-contact-us)
-7. [🏛️ License](#🏛️-license)
-8. [⚠️ Issues](#⚠️-issues)
+4. [🫡 Cite us !](#🫡-cite-us)
+5. [💌 Contact us !](#💌-contact-us)
+6. [🏛️ License](#🏛️-license)
+7. [⚠️ Issues](#⚠️-issues)
 
   </div>
 
@@ -58,14 +57,6 @@
 This repo is the official implementation of [Expel: LLM Agents are Experiential Learners](https://arxiv.org/pdf/2308.10144.pdf). 
 
 Our agent autonomously gathers experiences and extracts knowledge using natural language from a collection of training tasks. At inference, the agent recalls its extracted insights and past experiences to make informed decisions. Our empirical results highlight the robust learning efficacy of the ExpeL agent, indicating a consistent enhancement in its performance as it accumulates experiences.
-
-# Project Overview
-
-Provide an overview of your project.
-
-<img src="assets/eval_example.png" alt="Smoll baby robot" width="auto" height="80">
-
-<img src="assets/expel.png" alt="Smoll baby robot" width="auto" height="80">
 
 # 🛠️ Installation
 Python version : 3.9.17
