@@ -27,7 +27,7 @@
 
 [👋 Introduction](#-introduction)
 
-[🛠️ Installation](#-installation)
+[🛠️ Installation](#%EF%B8%8F-installation)
 
 - [🌳 Environments](#-environments)
   - [🏠 ALFWorld](#-alfworld)
@@ -42,11 +42,11 @@
 
 [💌 Contact us !](#-contact-us-)
 
-[🏛️ License](#-license)
+[🏛️ License](#%EF%B8%8F-license)
 
-[⚠️ Issues](#-issues)
+[⚠️ Issues](#%EF%B8%8F-issues)
 
-  </div>
+</div>
 
   <!-- Right Column - Image -->
   <div style="flex: 2;">
