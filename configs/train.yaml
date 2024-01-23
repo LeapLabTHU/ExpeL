@@ -1,0 +1,19 @@
+defaults:
+  - _self_
+  - benchmark: hotpotqa
+  - agent: expel
+  - override hydra/hydra_logging: disabled  
+  - override hydra/job_logging: disabled  
+
+ai_name: ${benchmark.ai_name}
+agent_type: ${agent.name}
+log_dir: logs
+run_name: run
+testing: true
+resume: false
+
+# remove hydra output files
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .

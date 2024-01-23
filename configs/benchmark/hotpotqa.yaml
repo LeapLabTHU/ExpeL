@@ -1,0 +1,9 @@
+name: hotpotqa
+task_prefix: "Question: "
+task_file: data/hotpotqa/hotpot-qa-distractor-sample.joblib
+max_steps: 7
+num_fewshots: 6
+eval_configs:
+  k_folds: 2
+  k_folds_seed: 42
+ai_name: QA system

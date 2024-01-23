@@ -1,0 +1,9 @@
+name: fever
+task_prefix: "Claim: "
+task_file: null
+max_steps: 7
+ai_name: fact verifier
+num_fewshots: 5
+eval_configs:
+  k_folds: 2
+  k_folds_seed: 42

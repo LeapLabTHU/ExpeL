@@ -1,0 +1,10 @@
+name: webshop
+task_prefix: "Instruction:\n"
+task_file: data/webshop/webshop.fixed100.json
+max_steps: 15
+num_fewshots: 2
+eval_configs:
+  k_folds: 2
+  k_folds_seed: 42
+ai_name: webshop
+num_tasks: 100

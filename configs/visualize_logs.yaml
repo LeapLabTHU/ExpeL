@@ -1,0 +1,16 @@
+defaults:
+  - _self_
+  - benchmark: hotpotqa
+  - agent: expel
+  - override hydra/hydra_logging: disabled  
+  - override hydra/job_logging: disabled  
+  
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .
+
+log_path: logs/${benchmark.name}/${agent.name}
+run_name: run
+num_tasks: 100
+save_fig: false
