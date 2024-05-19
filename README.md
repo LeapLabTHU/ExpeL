@@ -88,14 +88,14 @@ Baby ExpeL has been playing around with the following environments:
 
 - ❓[HotpotQA](https://github.com/hotpotqa/hotpot)
 - 🏠 [ALFWorld](https://github.com/alfworld/alfworld)
-- 🛒 [Webshop](https://github.com/princeton-nlp/WebShop)
+- 🛒 [WebShop](https://github.com/princeton-nlp/WebShop)
 - 🌡️ [FEVER](https://github.com/awslabs/fever)
 
-Among these, ALFWorld and Webshop require manual installation (+ loading a server (can be local) for Webshop). Details below:
+Among these, ALFWorld and WebShop require manual installation (+ loading a server (can be local) for WebShop). Details below:
 
 ### 🏠 ALFWorld
 The installation instructions are shown below. Use the previously created environment to install ALFWorld.
-You will also need to download the data at the specified location: `data/alfworld`.
+You will also need to download the data at the specified location: ``data/alfworld``.
 ```Bash
 conda activate expel
 pip install alfworld[full]
@@ -103,12 +103,12 @@ pip install alfworld[full]
 export ALFWORLD_DATA="data/alfworld"
 alfworld-download
 ```
-If you need more details, please refer to the [Official repo](https://github.com/alfworld/alfworld#quickstart).
+If you need more details, please refer to the [official repo](https://github.com/alfworld/alfworld#quickstart).
 
-### 🛒 Webshop
+### 🛒 WebShop
 
-Webshop installation is different from the other environments. You will have to install it and **manually** run the server (can be local) in parallel of ExpeL to interact with the environment.
-The succint installation instructions are shown below.
+WebShop installation is different from the other environments. You will have to install it and **manually** run the server (can be local) in parallel of ExpeL to interact with the environment.
+The succinct installation instructions are shown below.
 
 ```bash
 git clone https://github.com/princeton-nlp/webshop.git webshop
@@ -121,7 +121,7 @@ conda activate webshop
 ./setup.sh -d all
 ```
 
-By default the WebShop only loads 1,000 products. But we need <u>ALL OF THEM</u> (🤯). So change web_agent_site/utils.py:
+By default the WebShop only loads 1,000 products. But we need <u>ALL OF THEM</u> (🤯). So change ``web_agent_site/utils.py``:
 
 ```python
 # DEFAULT_ATTR_PATH = join(BASE_DIR, '../data/items_ins_v2_1000.json')
@@ -135,21 +135,21 @@ To run the server, run the following command:
 ```
 You will be given an URL (and port) once the website is on:
 - Go back to the cloned ExpeL repo
-- Modify the config file and add the given URL at envs/webshop/webshop.py:
+- Modify the config file and add the given URL in ``envs/webshop/webshop.py``:
 ```python
 WEBSHOP_URL = "http://127.0.0.1:3000" # Example URL
 ```
 
-Note that you will have to run the webshop server in the background to interact with the environment. We gathered some bugs we encountered during the Webshop Server setup [here](#issues).
+Note that you will have to run the WebShop server in the background to interact with the environment. We gathered some bugs we encountered during the WebShop Server setup [here](#issues).
 
-If you need more details, please refer to the [Official repo](https://github.com/princeton-nlp/WebShop?tab=readme-ov-file#-setup).
+If you need more details, please refer to the [official repo](https://github.com/princeton-nlp/WebShop?tab=readme-ov-file#-setup).
 
 
 ## 🚀 Quick start
 
 Below are the commands to run the ExpeL Agent.
 
-**Either put your OpenAI API key in a .env (OPENAI_API_KEY=XXX) file or get prompted in the command line**
+**Either put your OpenAI API key in a ``.env`` file (OPENAI_API_KEY=XXX) or get prompted in command line**
 
 ### 1. For the **Experience Gathering** stage:
 ```bash
@@ -166,7 +166,7 @@ Below are the commands to run the experience gathering stage as in the paper:
 ```bash
 # 🏠 ALFWorld
 python train.py benchmark=alfworld run_name=<train-run-name> testing=false resume=false
-# 🛒 Webshop
+# 🛒 WebShop
 python train.py benchmark=webshop run_name=<train-run-name> testing=false resume=false
 # ❓ HotpotQA
 python train.py benchmark=hotpotqa run_name=<train-run-name> testing=false resume=false
@@ -200,7 +200,7 @@ Below are the commands to run the insights extraction stage as in the paper:
 ```bash
 # 🏠 ALFWorld
 python insight_extraction.py benchmark=alfworld load_run_name=<train-run-name> run_name=<insights-extraction-run-name> agent.llm=gpt-4 agent.max_num_rules=10 agent.success_critique_num=8 testing=false resume=false
-# 🛒 Webshop
+# 🛒 WebShop
 python insight_extraction.py benchmark=webshop load_run_name=<train-run-name> run_name=<insights-extraction-run-name> agent.llm=gpt-4 agent.max_num_rules=8 agent.success_critique_num=4 testing=false resume=false
 # ❓ HotpotQA
 python insight_extraction.py benchmark=hotpotqa load_run_name=<train-run-name> run_name=<insights-extraction-run-name> agent.llm=gpt-4 agent.max_num_rules=10 agent.success_critique_num=8 testing=false resume=false
@@ -235,7 +235,7 @@ Below are the commands to evalute ExpeL as in the paper:
 ```bash
 # 🏠 ALFWorld
 python eval.py benchmark=alfworld load_run_name=extracted_insights/<insights-extraction-run-name> run_name=<eval-run-name> agent.fewshot_strategy=task_similarity agent.retrieval_kwargs.max_fewshot_tokens=auto testing=false resume=false
-# 🛒 Webshop
+# 🛒 WebShop
 python eval.py benchmark=webshop load_run_name=extracted_insights/<insights-extraction-run-name> run_name=<eval-run-name> agent.fewshot_strategy=task_similarity agent.retrieval_kwargs.max_fewshot_tokens=auto agent.retrieval_kwargs.buffer_retrieve_ratio=20 testing=false resume=false
 # ❓ HotpotQA
  python eval.py benchmark=hotpotqa load_run_name=extracted_insights/<insights-extraction-run-name> run_name=<eval-run-name> agent.fewshot_strategy=task_similarity testing=false resume=false
@@ -247,13 +247,20 @@ The result files will be saved in ``logs/<benchmark-name>/expel/eval`` reference
 This repository contains code for reproducing results. If you find this work useful in your research (and/or daily life), please cite:
 
 ```
-@misc{zhao2023expel,
-      title={ExpeL: LLM Agents Are Experiential Learners}, 
-      author={Andrew Zhao and Daniel Huang and Quentin Xu and Matthieu Lin and Yong-Jin Liu and Gao Huang},
-      year={2023},
-      eprint={2308.10144},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@inproceedings{zhao2024expel,
+    author       = {Andrew Zhao and Daniel Huang and Quentin Xu and Matthieu Lin and Yong-Jin Liu and Gao Huang},
+    title        = {ExpeL: LLM Agents Are Experiential Learners},
+    booktitle    = {Thirty-Eighth {AAAI} Conference on Artificial Intelligence, {AAAI}
+                    2024, Thirty-Sixth Conference on Innovative Applications of Artificial
+                    Intelligence, {IAAI} 2024, Fourteenth Symposium on Educational Advances
+                    in Artificial Intelligence, {EAAI} 2024, February 20-27, 2024, Vancouver,
+                    Canada},
+    editor       = {Michael J. Wooldridge and Jennifer G. Dy and Sriraam Natarajan},
+    year         = {2024},
+    pages        = {19632--19642},
+    publisher    = {{AAAI} Press},
+    url          = {https://ojs.aaai.org/index.php/AAAI/article/view/29936},
+    doi          = {10.1609/aaai.v38i17.29936}
 }
 ```
 
@@ -266,9 +273,9 @@ If you have any questions, feel free to contact [Andrew Zhao](mailto:zqc21@mails
 Check `LICENSE.md`
 
 ## ⚠️ Issues
-We encountered some errors and gathered them here (note that at time of reading, their might have been fixed). If you don't encountered them, lucky you 😒. 
+We encountered some errors and gathered them here (note that at time of reading, they might have been fixed). If you don't encountered them, lucky you 😒. 
 
-**🛒 Webshop**-server installation:
+**🛒 WebShop**-server installation:
 
 ```Bash
 # install 
@@ -281,7 +288,7 @@ pip install typing-inspect==0.8.0 typing_extensions==4.5.0 # if issubclass error
 # if libjvm.so something, need to export JAVA_HOME
 ./setup.sh -d all 
 ```
-On Mac, if you have problem with lightgbm or nmslib you might to replace their pip to:
+On Mac, if you have problem with lightgbm or nmslib you might have to replace their pip to:
 ```Bash
 brew install cmake libomp 
 pip install lightgbm
