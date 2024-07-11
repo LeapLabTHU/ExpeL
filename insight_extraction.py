@@ -44,10 +44,14 @@ load_dotenv()
 
 @hydra.main(version_base=None, config_path="configs", config_name="insight_extraction")
 def main(cfg : DictConfig) -> None:
+
+    # Determine if we are either running validation or testing
     if cfg.testing:
         openai_api_key = 'NO_KEY_FOR_TESTING'
     else:
         openai_api_key = os.environ['OPENAI_API_KEY'] if 'OPENAI_API_KEY' in os.environ else getpass.getpass("Enter or paste your OpenAI API Key: ")
+    
+    # Save the insights based on the log_dir and benchmark inputs
     LOG_PATH = Path('/'.join([cfg.log_dir, cfg.benchmark.name, cfg.agent_type]))
     SAVE_PATH = LOG_PATH / 'extracted_insights'
     SAVE_PATH.mkdir(exist_ok=True)

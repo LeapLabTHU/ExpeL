@@ -1,0 +1,9 @@
+name: travelplanner
+task_prefix: "Plan: "
+task_file: null # need to convert validation dataset to a JSON file
+max_steps: 3
+num_fewshots: 1
+eval_configs:
+  k_folds: 2
+  k_folds_seed: 42
+ai_name: Travel Itinerary Planner

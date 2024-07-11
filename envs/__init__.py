@@ -51,6 +51,14 @@ INIT_TASKS_FN = dict(
         'env_name': 'webshop'
         } for row in json.load(open(cfg.benchmark.task_file, "r"))
     ],
+    travelplanner=lambda cfg: [
+        {
+        'task': f'{cfg.benchmark.task_prefix}{row["query"]}',
+        'env_kwargs': {
+            'query': row['query']
+        },
+        'env_name': 'travelplanner',
+    } for _, row in joblib.load(cfg.benchmark.task_file).reset_index(drop=True).iterrows()],
 )
 
 ENVS = dict(hotpotqa=QAEnv, fever=FeverEnv, alfworld=AlfworldEnv, webshop=WebshopEnv)

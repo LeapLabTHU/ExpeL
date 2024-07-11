@@ -41,10 +41,14 @@ from agent.reflect import Count
 
 @hydra.main(version_base=None, config_path="configs", config_name="train")
 def main(cfg : DictConfig) -> None:
+
+    # Determine whether we are training or testing
     if cfg.testing:
         openai_api_key = 'NO_KEY_FOR_TESTING'
     else:
         openai_api_key = os.environ['OPENAI_API_KEY'] if 'OPENAI_API_KEY' in os.environ else getpass.getpass("Enter or paste your OpenAI API Key: ")
+    
+    # Set the LOG_PATH based on log_dir and the benchmark
     LOG_PATH = Path('/'.join([cfg.log_dir, cfg.benchmark.name, cfg.agent_type]))
     LOG_PATH.mkdir(parents=True, exist_ok=True)
 
@@ -66,6 +70,7 @@ def main(cfg : DictConfig) -> None:
         out = {'log': '', 'dicts': [], 'true_log': f'{str(cfg)}'}
     log, dicts, true_log = out['log'], out['dicts'], out['true_log']
 
+    # Set up the react agent upon loading the YAML file
     react_agent = AGENT[cfg.agent_type](
         name=cfg.ai_name,
         system_instruction=SYSTEM_INSTRUCTION[cfg.benchmark.name],
