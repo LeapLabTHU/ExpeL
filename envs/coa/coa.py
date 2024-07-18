@@ -13,7 +13,9 @@ class COAEnv(BaseEnv):
                  question: str,
                  key: str,
                  max_steps: int = 6,
-                 explorer: DocstoreExplorer = DocstoreExplorer(Wikipedia())):
+                 explorer: str = "DUMMY_VALUE"
+                #  explorer: DocstoreExplorer = DocstoreExplorer(Wikipedia())
+                 ):
 
         self.question = question
         self.key = key
