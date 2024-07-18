@@ -15,6 +15,14 @@ idxs = list(range(7405))
 random.Random(233).shuffle(idxs)
 
 INIT_TASKS_FN = dict(
+    coa=lambda cfg: [
+        {
+        'task': f'{cfg.benchmark.task_prefix}{row["question"]}',
+        'env_kwargs': {
+            'supporting_info': row['supporting_information'],
+        },
+        'env_name': 'coa',
+    } for _, row in joblib.load(cfg.benchmark.task_file).reset_index(drop=True).iterrows()],
     hotpotqa=lambda cfg: [
         {
         'task': f'{cfg.benchmark.task_prefix}{row["question"]}',
@@ -61,4 +69,4 @@ INIT_TASKS_FN = dict(
     } for _, row in joblib.load(cfg.benchmark.task_file).reset_index(drop=True).iterrows()],
 )
 
-ENVS = dict(hotpotqa=QAEnv, fever=FeverEnv, alfworld=AlfworldEnv, webshop=WebshopEnv)
+ENVS = dict(coa=COAEnv, hotpotqa=QAEnv, fever=FeverEnv, alfworld=AlfworldEnv, webshop=WebshopEnv)
