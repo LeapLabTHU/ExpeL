@@ -128,6 +128,7 @@ class BattlefieldValidation:
         x2, y2 = end_location['x'], end_location['y']
 
         # Store the bridge coordinates in a set
+        # These hardcoded values should be changed later.
         bridge_coordinates = {(100, 50), (100, 150)}
 
         """

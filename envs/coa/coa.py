@@ -82,15 +82,20 @@ class COAEnv(BaseEnv):
         
         # attack_move_unit(unit_id, target_x, target_y)
         elif action_type == 'attack_move_unit':
-            while True:
-                try:
-                    # observation = move to a position and provide feedback on
-                    # whether this is a valid move or not
-                    observation = self.explorer.search(argument).strip('\n').strip()
-                    break
-                except Exception as e:
-                    print(f"Exception: {e}")
-                    time.sleep(5)
+            try:
+                
+                # Evaluate whether the commanded move is a valid action
+                # Remove hardcode later
+                current_field = BattlefieldValidation()
+                is_valid_attack = current_field.check_bridge_cross({'x': 1, 'y': 1}, {'x': 2, 'y': 2})
+
+                if is_valid_attack:
+                    observation = "The friendly unit has made a valid move. Provide commands for the remaining friendly units."
+                else:
+                    observation = "The friendly unit made an invalid move. Remember that your friendly units cannot go out of bounds or cross the river without going over the bridge. Please provide a new order for the currently selected friendly unit"
+                    
+            except Exception as e:
+                print(f"Exception: {e}")
         
         # stand_location(unit_id)
         elif action_type == 'Stand':
@@ -114,7 +119,7 @@ class COAEnv(BaseEnv):
     only contains valid movements.
     """
     def success_fn(self) -> bool:
-        field = BattlefieldValidation.BattlefieldValidation(self.answer)
+        field = BattlefieldValidation(self.answer)
         field.check_movement()
         return all(field.movement_check_arr)
         
