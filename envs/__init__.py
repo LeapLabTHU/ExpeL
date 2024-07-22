@@ -4,6 +4,7 @@ import random
 import json
 
 from .base import BaseEnv
+from .coa.coa import COAEnv
 from .hotpotqa.hotpotqa import QAEnv
 from .fever.fever import FeverEnv
 from .alfworld.alfworld import AlfworldEnv
