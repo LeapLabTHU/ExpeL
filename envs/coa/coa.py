@@ -26,11 +26,11 @@ class COAEnv(BaseEnv):
         self.terminated = False
 
     def step(self, action: str) -> Tuple[str, bool, bool, bool, bool]:
-        action_type, argument = parse_action(action)
+        action_type, arguments = self.parse_coa_call(action)
         observation = ""
 
-        if action_type == 'Finish':
-            self.answer = argument
+        if action_type == 'finish':
+            self.answer = arguments
             if self.success_fn():
                 observation = 'Answer is CORRECT'
             else: 
@@ -40,7 +40,8 @@ class COAEnv(BaseEnv):
         # engage_target_unit(unit_id, target_unit_id)
         elif action_type == 'engage_target_unit':
 
-            REPLACE_WITH_HELPER_FUNCTION = lambda x: x+2
+            # Extract the arguments from the function call
+            unit_id, target_unit_id = arguments
 
             try:
 
@@ -48,8 +49,7 @@ class COAEnv(BaseEnv):
                 Call the helper function to determine whether the currently selected friendly unit
                 can neutralize the targeted enemy unit within its attack range.
                 """
-                # enemy_within_range = self.battlefield(unit_id, target_unit_id)
-                enemy_within_range = True
+                enemy_within_range = self.battlefield(unit_id, target_unit_id)
 
                 """
                 Case 1: The enemy is within range
@@ -78,11 +78,19 @@ class COAEnv(BaseEnv):
         # attack_move_unit(unit_id, target_x, target_y)
         elif action_type == 'attack_move_unit':
             try:
+
+                # Extract arguments from the function call
+                unit_id, target_x, target_y = arguments
+
+                """
+                Find the current coordinates of the selected friendly unit, then format the
+                destination coordinates as a dictionary prior to calling the helper function.
+                """
+                start_position = self.battlefield.supporting_information[unit_id-1]["position"]
+                dest_position = {"x": target_x, "y": target_y}
                 
                 # Evaluate whether the commanded move is a valid action
-                # Remove hardcode later
-                current_field = BattlefieldValidation()
-                is_valid_attack = current_field.check_bridge_cross({'x': 1, 'y': 1}, {'x': 2, 'y': 2})
+                is_valid_attack = self.battlefield.check_bridge_cross(start_position, dest_position)
 
                 if is_valid_attack:
                     observation = "The friendly unit has made a valid move. Provide commands for the remaining friendly units."
@@ -93,10 +101,10 @@ class COAEnv(BaseEnv):
                 print(f"Exception: {e}")
         
         # stand_location(unit_id)
-        elif action_type == 'stand':
+        elif action_type == 'stand_location':
             try:
                 # observation = stand ground against enemies
-                observation = self.explorer.lookup(argument).strip('\n').strip()
+                observation = self.explorer.lookup(arguments).strip('\n').strip()
             except ValueError:
                 observation = f'You are trying to stand in an invalid location, likely because you are either in the river or out of bounds. For your next action, move to a different location by calling the attack_move_unit(unit_id, target_x, target_y) function.'
         else:
