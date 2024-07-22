@@ -10,20 +10,14 @@ from utils import parse_action, EM
 
 class COAEnv(BaseEnv):
     def __init__(self,
-                 question: str,
-                 key: str,
-                 max_steps: int = 6,
-                 explorer: str = "DUMMY_VALUE",
-                 battlefield: BattlefieldValidation = BattlefieldValidation()
+                 supporting_information: str = "",
+                 max_steps: int = 6
                  ):
 
-        self.question = question
-        self.key = key
+        self.supporting_information = supporting_information
         self.max_steps = max_steps
-        self.explorer = explorer
         self.task = """Course-of-action planning agent. The agent was given access to a course-of-action (COA) environment and a question to answer. The agent can command friendly units to either move, engage, or stand, and finish with an answer."""
         self.env_name = 'coa'
-        self.battlefield = BattlefieldValidation()
 
         self.reset()
 
