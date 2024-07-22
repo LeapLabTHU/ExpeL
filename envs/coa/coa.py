@@ -1,3 +1,4 @@
+import ast
 import json
 from typing import Tuple
 
@@ -47,7 +48,8 @@ class COAEnv(BaseEnv):
                 Call the helper function to determine whether the currently selected friendly unit
                 can neutralize the targeted enemy unit within its attack range.
                 """
-                enemy_within_range = eval(REPLACE_WITH_HELPER_FUNCTION, "DUMMY VALUE")
+                # enemy_within_range = self.battlefield(unit_id, target_unit_id)
+                enemy_within_range = True
 
                 """
                 Case 1: The enemy is within range
@@ -115,4 +117,23 @@ class COAEnv(BaseEnv):
         field = BattlefieldValidation(self.answer)
         field.check_movement()
         return all(field.movement_check_arr)
-        
+
+    def parse_coa_call(function_call_str):
+        try:
+            # Parse the string into an AST node
+            node = ast.parse(function_call_str, mode='eval')
+
+            # Ensure the node is an expression and the body is a function call
+            if isinstance(node, ast.Expression) and isinstance(node.body, ast.Call):
+
+                # Extract the function name, then extract and evaluate the args
+                func_name = node.body.func.id
+                args = [ast.literal_eval(arg) for arg in node.body.args]
+                
+                # Return the function name and arguments
+                return func_name, args
+            else:
+                raise ValueError("Invalid function call string")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None, None
