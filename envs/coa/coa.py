@@ -106,7 +106,11 @@ class COAEnv(BaseEnv):
                 unit_id = arguments[0]
 
                 # Determine if it is possible for the unit to stand within the location
+                if self.is_valid_stand_location(unit_id):
+                    observation = "This is a valid stand action. Provide commands for the remaining friendly units."
                 
+                else:
+                    observation = "Your friendly unit is out of bounds. For your next action, move to a different location by calling the attack_move_unit(unit_id, target_x, target_y) function."
 
                 # observation = stand ground against enemies
                 observation = self.explorer.lookup(arguments).strip('\n').strip()
