@@ -100,7 +100,7 @@ def shuffled_chunks(lst: List[Any], num_chunks: int):
     random.shuffle(chunks)
     return chunks
 
-def token_counter(text: str, llm: str = 'gpt-3.5-turbo', tokenizer: Callable = None) -> int:
+def token_counter(text: str, llm: str = 'gpt-4o-mini', tokenizer: Callable = None) -> int:
     """
     Counts the number of tokens in the text.
     

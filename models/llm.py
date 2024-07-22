@@ -10,7 +10,7 @@ class GPTWrapper:
     def __init__(self, llm_name: str, openai_api_key: str, long_ver: bool):
         self.model_name = llm_name
         if long_ver:
-            llm_name = 'gpt-3.5-turbo-16k'
+            llm_name = 'gpt-4o-mini'
         self.llm = ChatOpenAI(
             model=llm_name,
             temperature=0.0,

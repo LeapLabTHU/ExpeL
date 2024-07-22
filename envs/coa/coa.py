@@ -13,16 +13,17 @@ class COAEnv(BaseEnv):
                  question: str,
                  key: str,
                  max_steps: int = 6,
-                 explorer: str = "DUMMY_VALUE"
-                #  explorer: DocstoreExplorer = DocstoreExplorer(Wikipedia())
+                 explorer: str = "DUMMY_VALUE",
+                 battlefield: BattlefieldValidation = BattlefieldValidation()
                  ):
 
         self.question = question
         self.key = key
         self.max_steps = max_steps
         self.explorer = explorer
-        self.task = """multi-hop QA. The agent was given access to a Docstore API environment and a question to answer. The agent can search for pages related to the question, lookup keywords in the pages, and finish with an answer."""
+        self.task = """Course-of-action planning agent. The agent was given access to a course-of-action (COA) environment and a question to answer. The agent can command friendly units to either move, engage, or stand, and finish with an answer."""
         self.env_name = 'coa'
+        self.battlefield = BattlefieldValidation()
 
         self.reset()
 
@@ -98,14 +99,14 @@ class COAEnv(BaseEnv):
                 print(f"Exception: {e}")
         
         # stand_location(unit_id)
-        elif action_type == 'Stand':
+        elif action_type == 'stand':
             try:
                 # observation = stand ground against enemies
                 observation = self.explorer.lookup(argument).strip('\n').strip()
             except ValueError:
-                observation = f'The last page Searched was not found, so you cannot Lookup a keyword in it. Please try one of the similar pages given.'
+                observation = f'You are trying to stand in an invalid location, likely because you are either in the river or out of bounds. For your next action, move to a different location by calling the attack_move_unit(unit_id, target_x, target_y) function.'
         else:
-            observation = 'Invalid Action. Valid Actions are Lookup[<topic>] Search[<topic>] and Finish[<answer>].'
+            observation = 'Invalid action. Valid actions are engage_target_unit(unit_id, target_unit_id), attack_move_unit(unit_id, target_x, target_y) and stand_location(unit_id).'
 
         self.curr_step += 1
         self.reward = self.success_fn()

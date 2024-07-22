@@ -78,6 +78,20 @@ class BattlefieldValidation:
             else:
                 self.movement_check_arr.append(True)
 
+    def check_enemy_within_range(unit_id, target_unit_id):
+        
+        key = unit_id
+        effective_ranges = {"Armor": 25, "Artillery": 30, "Aviation": 10}
+
+        friendly_location = fl = ""
+        enemy_location = el = ""
+
+        dx = fl["x"]-el["x"]
+        dy = fl["y"]-el["y"]
+        distance = (dx*dx + dy*dy)**0.5
+
+        return (distance <= effective_ranges[key])
+
     """
     match_bridge_slope() function
     Evaluates whether a ground unit crosses a bridge rather than sinking in the river
