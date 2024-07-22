@@ -3,8 +3,10 @@ import numpy as np
 from typing import Dict, List, Tuple, Set
 
 class BattlefieldValidation:
-    def __init__(self, json) -> None:
-        self.resp = json
+
+    def __init__(self, supporting_information, json) -> None:
+        self.supporting_information = json.load(supporting_information)
+        self.resp = json.load(json)
         self.input=self.get_initial_positions()
         self.output=self.get_model_output()
 
@@ -78,20 +80,6 @@ class BattlefieldValidation:
             else:
                 self.movement_check_arr.append(True)
 
-    def check_enemy_within_range(unit_id, target_unit_id):
-        
-        key = unit_id
-        effective_ranges = {"Armor": 25, "Artillery": 30, "Aviation": 10}
-
-        friendly_location = fl = ""
-        enemy_location = el = ""
-
-        dx = fl["x"]-el["x"]
-        dy = fl["y"]-el["y"]
-        distance = (dx*dx + dy*dy)**0.5
-
-        return (distance <= effective_ranges[key])
-
     """
     match_bridge_slope() function
     Evaluates whether a ground unit crosses a bridge rather than sinking in the river
@@ -129,7 +117,7 @@ class BattlefieldValidation:
         
         # If there exist no valid bridge crossings, return False
         return False
-        
+    
     """
     check_bridge_cross() function
     Input:  Two dicts structured as {"x": INT_1, "y": INT_2}
@@ -180,6 +168,33 @@ class BattlefieldValidation:
         If none of these three criteria were met, or the armor/artillery never crossed into enemy territory,
         then the armor/artilerry never crossed the bridge (and so we would return False).
         """
-        if(crossed_enemy_territory and not (starts_on_bridge or ends_on_bridge or crosses_bridge_midway)):
-            return False
-        return True
+        crossed_bridge = not (crossed_enemy_territory and not (starts_on_bridge or ends_on_bridge or crosses_bridge_midway))
+        return crossed_bridge
+    
+    """
+    check_enemy_within_range helper function
+
+    Input:  Integer IDs corresponding to the friendly and enemy unit within range: [1, num_units]
+    Output: True/False based on whether or not the friendly unit can strike the enemy unit
+    """
+    def check_enemy_within_range(self, friendly_id: int, enemy_id: int):
+
+        # Store the effective range of all artillery units
+        effective_ranges = {"Armor": 25, "Artillery": 30, "Aviation": 10}
+
+        # Find the effective range of the friendly unit
+        friendly_type = self.supporting_information[friendly_id-1]["unit_type"]
+        friendly_distance = effective_ranges[friendly_type]
+
+        # Extract the location of the friendly and enemy unit
+        friendly_location = fl = self.supporting_information[friendly_id-1]["position"]
+        enemy_location = el = self.supporting_information[enemy_id-1]["position"]
+
+        # Calculate the distance between the friendly and enemy unit
+        dx = fl["x"]-el["x"]
+        dy = fl["y"]-el["y"]
+        distance_to_enemy = (dx*dx + dy*dy)**0.5
+
+        # Determine whether or not the enemy unit is within range
+        return (distance_to_enemy <= friendly_distance)
+    
