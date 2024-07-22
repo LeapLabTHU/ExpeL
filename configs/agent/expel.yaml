@@ -1,5 +1,5 @@
 name: expel
-llm: gpt-3.5-turbo # gpt-3.5-turbo-0301
+llm: gpt-4o-mini
 max_reflection_depth: 3
 max_num_rules: 20
 truncate_strategy: null
