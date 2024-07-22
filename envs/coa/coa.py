@@ -40,10 +40,9 @@ class COAEnv(BaseEnv):
         # engage_target_unit(unit_id, target_unit_id)
         elif action_type == 'engage_target_unit':
 
-            # Extract the arguments from the function call
-            unit_id, target_unit_id = arguments
-
             try:
+                # Extract the arguments from the function call
+                unit_id, target_unit_id = arguments
 
                 """
                 Call the helper function to determine whether the currently selected friendly unit
@@ -103,6 +102,12 @@ class COAEnv(BaseEnv):
         # stand_location(unit_id)
         elif action_type == 'stand_location':
             try:
+                # Extract the unit_id from the argument
+                unit_id = arguments[0]
+
+                # Determine if it is possible for the unit to stand within the location
+                
+
                 # observation = stand ground against enemies
                 observation = self.explorer.lookup(arguments).strip('\n').strip()
             except ValueError:

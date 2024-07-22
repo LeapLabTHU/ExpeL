@@ -4,11 +4,12 @@ from typing import Dict, List, Tuple, Set
 
 class BattlefieldValidation:
 
-    def __init__(self, supporting_information, json) -> None:
+    def __init__(self, supporting_information: json, validation_json: json) -> None:
         self.supporting_information = json.load(supporting_information)
-        self.resp = json.load(json)
-        self.input=self.get_initial_positions()
-        self.output=self.get_model_output()
+        self.resp = json.load(validation_json)
+        self.input = self.get_initial_positions()
+        self.output = self.get_model_output()
+        self.border = 200
 
     def get_model_output(self) -> Dict:
         return self.resp['model_output']
@@ -123,7 +124,7 @@ class BattlefieldValidation:
     Input:  Two dicts structured as {"x": INT_1, "y": INT_2}
     Output: Returns True/False based on whether a bridge crossing occurred
     """
-    def check_bridge_cross(self, start_location:Dict, end_location:Dict) -> bool:
+    def check_bridge_cross(self, start_location: Dict, end_location: Dict) -> bool:
 
         # Extract both the start and end coordinates
         x1, y1 = start_location['x'], start_location['y']
@@ -177,7 +178,7 @@ class BattlefieldValidation:
     Input:  Integer IDs corresponding to the friendly and enemy unit within range: [1, num_units]
     Output: True/False based on whether or not the friendly unit can strike the enemy unit
     """
-    def check_enemy_within_range(self, friendly_id: int, enemy_id: int):
+    def check_enemy_within_range(self, friendly_id: int, enemy_id: int) -> bool:
 
         # Store the effective range of all artillery units
         effective_ranges = {"Armor": 25, "Artillery": 30, "Aviation": 10}
@@ -198,3 +199,17 @@ class BattlefieldValidation:
         # Determine whether or not the enemy unit is within range
         return (distance_to_enemy <= friendly_distance)
     
+    """
+    is_valid_stand_location helper function
+
+    Input:  Integer ID corresponding to the friendly unit commanded to stand location
+    Output: True/False based on whether or not the friendly unit can stand at this location
+    """
+    def is_valid_stand_location(self, unit_id: int) -> bool:
+        
+        # Extract the x and y-coordinates from the unit_id
+        coordinates = self.battlefield.supporting_information[unit_id-1]["position"]
+        x, y = coordinates["x"], coordinates["y"]
+
+        # Determine whether the unit is within bounds
+        return (0 <= x < self.border) and (0 <= y < self.border)
