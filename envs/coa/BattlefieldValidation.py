@@ -21,6 +21,8 @@ class BattlefieldValidation:
         self.output = self.get_model_output()
         self.border = 200
 
+        print(f"SI: {type(supporting_information)}")
+
     def get_model_output(self) -> Dict:
         return self.resp['model_output']
     
