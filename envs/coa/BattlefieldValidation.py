@@ -4,12 +4,18 @@ from typing import Dict, List, Tuple, Set
 
 class BattlefieldValidation:
 
-    def __init__(self, supporting_information: json, validation_json: json) -> None:
-        self.supporting_information = json.load(supporting_information)
-        self.resp = json.load(validation_json)
+    def __init__(self, supporting_information: str, validation_json: str = "") -> None:
+        print(f"input: {supporting_information}")
+        
+        self.supporting_information = json.loads(supporting_information)
         self.input = self.get_initial_positions()
         self.output = self.get_model_output()
         self.border = 200
+
+        print(f"info: {self.supporting_information}")
+
+        # Change later for future validation tests
+        self.resp = json.loads(validation_json) if validation_json else json.loads(supporting_information)
 
     def get_model_output(self) -> Dict:
         return self.resp['model_output']

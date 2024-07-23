@@ -2,14 +2,14 @@ import ast
 import json
 from typing import Tuple
 
-from BattlefieldValidation import BattlefieldValidation
+from .BattlefieldValidation import BattlefieldValidation
 
 from envs.base import BaseEnv
 from utils import parse_action, EM
 
 class COAEnv(BaseEnv):
     def __init__(self,
-                 supporting_information: json = "",
+                 supporting_information: str = "",
                  max_steps: int = 6
                  ):
         

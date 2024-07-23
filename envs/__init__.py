@@ -20,7 +20,7 @@ INIT_TASKS_FN = dict(
         {
         'task': f'{cfg.benchmark.task_prefix}{row["question"]}',
         'env_kwargs': {
-            'supporting_info': row['supporting_information'],
+            'supporting_information': row['supporting_information'],
         },
         'env_name': 'coa',
     } for _, row in joblib.load(cfg.benchmark.task_file).reset_index(drop=True).iterrows()],
