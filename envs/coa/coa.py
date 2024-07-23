@@ -150,7 +150,7 @@ class COAEnv(BaseEnv):
                 # Return the function name and arguments
                 return func_name, args
             else:
-                raise ValueError("Invalid function call string")
+                raise ValueError("parse_coa_call: Invalid function call string")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred while running parse_coa_call: {e}")
             return None, None

@@ -293,7 +293,7 @@ def recompute_stats(parsed_result: List[List[str]], benchmark: str, trial: int =
         last_trajectory = trajectories[min(trial, len(trajectories) - 1)].strip()
         last_step = last_trajectory.split('\n')[-1]
 
-        if benchmark == 'hotpotqa':
+        if benchmark == 'hotpotqa' or benchmark == 'coa':
             if ' CORRECT' in last_step:
                 stats["success"] += 1
             elif 'INCORRECT' in last_step:
@@ -599,7 +599,7 @@ def mode_results(benchmark: str, log: str, num_tasks: int, mode: str) -> Any:
             invalid = 'nothing happens'
         elif benchmark == 'webshop':
             invalid = 'invalid action' 
-        elif benchmark in ['hotpotqa', 'fever']:
+        elif benchmark in ['coa', 'hotpotqa', 'fever']:
             # invalid = 'similar: ['
             invalid = 'invalid action'
         mode += 'observation'
@@ -609,7 +609,7 @@ def mode_results(benchmark: str, log: str, num_tasks: int, mode: str) -> Any:
             lambda_filter = lambda y: y.strip().startswith('Action: think[')
         elif benchmark == 'alfworld':
             lambda_filter = lambda y: y.strip().startswith('> think:')
-        elif benchmark in ['hotpotqa', 'fever']:
+        elif benchmark in ['coa', 'hotpotqa', 'fever']:
             lambda_filter = lambda y: y.strip().startswith('Thought')
         else:
             raise NotImplementedError(f'benchmark {benchmark} not implemented')
@@ -618,7 +618,7 @@ def mode_results(benchmark: str, log: str, num_tasks: int, mode: str) -> Any:
             lambda_filter = lambda y: y.strip().startswith('Action: click[') or y.strip().startswith('Action: search[') # valid actions
         elif benchmark == 'alfworld':
             lambda_filter = lambda y: y.strip().startswith('> ') and not y.strip().startswith('> think:') # valid and invalid actions
-        elif benchmark in ['hotpotqa', 'fever']:
+        elif benchmark in ['coa', 'hotpotqa', 'fever']:
             lambda_filter = lambda y: y.strip().startswith('Action')
         else:
             raise NotImplementedError(f'benchmark {benchmark} not implemented')
@@ -627,7 +627,7 @@ def mode_results(benchmark: str, log: str, num_tasks: int, mode: str) -> Any:
             lambda_filter = lambda y: y.strip().startswith('Observation:')
         elif benchmark == 'alfworld':
             lambda_filter = lambda y: not y.strip().startswith('> ')
-        elif benchmark in ['hotpotqa', 'fever']:
+        elif benchmark in ['coa', 'hotpotqa', 'fever']:
             lambda_filter = lambda y: y.strip().startswith('Observation')
         else:
             raise NotImplementedError(f'benchmark {benchmark} not implemented')

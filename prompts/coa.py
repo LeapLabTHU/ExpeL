@@ -61,9 +61,10 @@ East at the top right of the map (coordinates x: 175, y: 175).
 The available Friendly and Hostile forces with their respective identification tags, types, and position are defined in the following JSON object:
 
 ```
-{locations}
+{supporting_information}
 ```
-Remember to respond in JSON format only, do not add any natural language in your response, and only create COAs for friendly troops.
+
+Provide a series of function calls to each friendly unit under your command via natural language, then upon completing your plan, call the finish(JSON_PLAN) function, where JSON_PLAN is the JSON representation of your plan.
 
 """
 
