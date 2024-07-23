@@ -346,6 +346,8 @@ def plot_trial_stats(parsed_result: List[List[str]], benchmark: str, max_trials:
     if benchmark == 'alfworld':
         assert len(parsed_result) == 134
         results = {k: [round(x / 134 * 100, 2) for x in v] for k, v in results.items()}
+    elif benchmark == 'coa':
+        assert len(parsed_result) > 0
     else:
         assert len(parsed_result) == 100
 
