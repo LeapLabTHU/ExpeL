@@ -1,9 +1,10 @@
 import json
 
-json_string = '[{"name": "John", "age": 30, "city": "New York"}, {"name": "Carter", "age": 23, "city": "Ankara"}]'
+json_string = """[{'unit_id': 1, 'unit_type': 'Artillery', 'alliance': 'Friendly', 'position': {'x': 51, 'y': 83}}, {'unit_id': 2, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 36, 'y': 42}}, {'unit_id': 3, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 74, 'y': 81}}, {'unit_id': 4, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 83, 'y': 63}}, {'unit_id': 5, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 89, 'y': 113}}, {'unit_id': 6, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 26, 'y': 121}}, {'unit_id': 7, 'unit_type': 'Artillery', 'alliance': 'Friendly', 'position': {'x': 85, 'y': 156}}, {'unit_id': 8, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 88, 'y': 12}}, {'unit_id': 9, 'unit_type': 'Artillery', 'alliance': 'Friendly', 'position': {'x': 66, 'y': 135}}, {'unit_id': 10, 'unit_type': 'Armor', 'alliance': 'Friendly', 'position': {'x': 14, 'y': 180}}, {'unit_id': 11, 'unit_type': 'Aviation', 'alliance': 'Hostile', 'position': {'x': 136, 'y': 67}}, {'unit_id': 12, 'unit_type': 'Armor', 'alliance': 'Hostile', 'position': {'x': 154, 'y': 28}}, {'unit_id': 13, 'unit_type': 'Aviation', 'alliance': 'Hostile', 'position': {'x': 126, 'y': 110}}, {'unit_id': 14, 'unit_type': 'Artillery', 'alliance': 'Hostile', 'position': {'x': 109, 'y': 166}}, {'unit_id': 15, 'unit_type': 'Artillery', 'alliance': 'Hostile', 'position': {'x': 151, 'y': 154}}, {'unit_id': 16, 'unit_type': 'Aviation', 'alliance': 'Hostile', 'position': {'x': 151, 'y': 72}}, {'unit_id': 17, 'unit_type': 'Armor', 'alliance': 'Hostile', 'position': {'x': 195, 'y': 155}}, {'unit_id': 18, 'unit_type': 'Aviation', 'alliance': 'Hostile', 'position': {'x': 159, 'y': 123}}, {'unit_id': 19, 'unit_type': 'Armor', 'alliance': 'Hostile', 'position': {'x': 106, 'y': 6}}, {'unit_id': 20, 'unit_type': 'Aviation', 'alliance': 'Hostile', 'position': {'x': 109, 'y': 72}}]"""
+json_string = json_string.replace("'", '"')
 
 try:
     data = json.loads(json_string)
-    print(data)
+    print("success!")
 except json.JSONDecodeError:
     print("Failed to decode JSON")

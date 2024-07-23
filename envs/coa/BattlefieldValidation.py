@@ -5,17 +5,21 @@ from typing import Dict, List, Tuple, Set
 class BattlefieldValidation:
 
     def __init__(self, supporting_information: str, validation_json: str = "") -> None:
-        print(f"input: {supporting_information}")
-        
+
+        # Ensure that there are no single quotes in the json string. If not, then the code will crash.
+        # The json.loads() function recognizes double quotes around keys and values.
+        supporting_information = supporting_information.replace("'", '"')
+
+        # Change later for future validation tests. This is a placeholder to use for train.py
+        self.resp = json.loads("""{"input_locations": [], "model_output": []}""")
+        if len(validation_json) > 0:
+            self.resp = json.loads(validation_json)
+
+        # Afterwards, initialize all the attributes.
         self.supporting_information = json.loads(supporting_information)
         self.input = self.get_initial_positions()
         self.output = self.get_model_output()
         self.border = 200
-
-        print(f"info: {self.supporting_information}")
-
-        # Change later for future validation tests
-        self.resp = json.loads(validation_json) if validation_json else json.loads(supporting_information)
 
     def get_model_output(self) -> Dict:
         return self.resp['model_output']
