@@ -17,6 +17,7 @@ class COAEnv(BaseEnv):
         self.task = """Course-of-action planning agent. The agent was given access to a course-of-action (COA) environment and a question to answer. The agent can command friendly units to either move, engage, or stand, and finish with an answer."""
         self.env_name = 'coa'
         self.battlefield = BattlefieldValidation(supporting_information)
+        self.lastObservation = True
 
         self.reset()
 
@@ -36,6 +37,7 @@ class COAEnv(BaseEnv):
             else: 
                 observation = f'Answer is INCORRECT'
             self.terminated = True
+            self.lastObservation = True
 
         # engage_target_unit(unit_id, target_unit_id)
         elif action_type == 'engage_target_unit':
@@ -59,6 +61,7 @@ class COAEnv(BaseEnv):
                 """
                 if enemy_within_range:
                     observation = "You commanded the friendly unit to a successful engagement that neutralized the enemy target. Plan movements for the remaining friendly units, if any exist."
+                    self.lastObservation = True
 
                     """
                     Case 2: The enemy is out of range
@@ -70,6 +73,7 @@ class COAEnv(BaseEnv):
 
                 else:
                     observation = "The engagement failed, as the targeted enemy unit is out of range. Please call the attack_move_unit(unit_id, target_x, target_y) function to move the currently selected friendly unit closer to the targeted enemy."
+                    self.lastObservation = False
 
             except ValueError:
                 observation = f'The helper function was unable to parse your engagement function call. Please try reformatting your engagement.'
@@ -89,15 +93,18 @@ class COAEnv(BaseEnv):
                 dest_position = {"x": target_x, "y": target_y}
                 
                 # Evaluate whether the commanded move is a valid action
-                is_valid_attack = self.battlefield.check_bridge_cross(start_position, dest_position)
+                is_valid_move = self.battlefield.check_bridge_cross(start_position, dest_position)
 
-                if is_valid_attack:
+                if is_valid_move:
                     observation = "The friendly unit has made a valid move. Provide commands for the remaining friendly units."
+                    self.lastObservation = True
                 else:
-                    observation = "The friendly unit made an invalid move. Remember that your friendly units cannot go out of bounds or cross the river without going over the bridge. Please provide a new order for the currently selected friendly unit"
+                    observation = "The friendly unit made an invalid move. Remember that your friendly units cannot go out of bounds or cross the river without going over the bridge. Please provide a new order for the currently selected friendly unit."
+                    self.lastObservation = False
                     
             except Exception as e:
                 print(f"Exception: {e}")
+                self.lastObservation = False
         
         # stand_location(unit_id)
         elif action_type == 'stand_location':
@@ -108,16 +115,18 @@ class COAEnv(BaseEnv):
                 # Determine if it is possible for the unit to stand within the location
                 if self.is_valid_stand_location(unit_id):
                     observation = "This is a valid stand action. Provide commands for the remaining friendly units."
+                    self.lastObservation = True
                 
                 else:
                     observation = "Your friendly unit is out of bounds. For your next action, move to a different location by calling the attack_move_unit(unit_id, target_x, target_y) function."
+                    self.lastObservation = False
 
-                # observation = stand ground against enemies
-                observation = self.explorer.lookup(arguments).strip('\n').strip()
             except ValueError:
                 observation = f'You are trying to stand in an invalid location, likely because you are either in the river or out of bounds. For your next action, move to a different location by calling the attack_move_unit(unit_id, target_x, target_y) function.'
+                self.lastObservation = False
         else:
             observation = 'Invalid action. Valid actions are engage_target_unit(unit_id, target_unit_id), attack_move_unit(unit_id, target_x, target_y) and stand_location(unit_id).'
+            self.lastObservation = False
 
         self.curr_step += 1
         self.reward = self.success_fn()
@@ -133,7 +142,7 @@ class COAEnv(BaseEnv):
     def success_fn(self) -> bool:
         # self.battlefield.check_movement()
         # return all(self.battlefield.movement_check_arr)
-        return True
+        return self.lastObservation
 
     def parse_coa_call(self, function_call_str):
         try:

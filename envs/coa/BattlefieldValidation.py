@@ -169,7 +169,7 @@ class BattlefieldValidation:
         to the end location. If this case, y1 must equal y2, and the y-coordinate
         must be equal to one of the bridge's y-coordinates.
         """
-        crosses_bridge_midway = any(y1 == y2 and y1 in bridge_coordinates)
+        crosses_bridge_midway = any(y1 == y2 for y1 in bridge_coordinates)
 
         """
         Evaluation:
