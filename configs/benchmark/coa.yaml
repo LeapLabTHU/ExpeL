@@ -1,6 +1,6 @@
 name: coa
 task_prefix: "Plan: "
-task_file: data/coa/coa-query-small-sample.joblib
+task_file: data/coa/coa-query-1friendly-1enemy.joblib
 max_steps: 7
 num_fewshots: 0
 eval_configs:

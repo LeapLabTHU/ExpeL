@@ -53,6 +53,7 @@ class BaseAgent(ABC):
             match = re.search(pattern, all_history)
         if include_task:
             return match.group().lstrip("Now it's your turn!\n") + match.string[match.end():]
+        if match == None: return ""
         return match.string[match.end():].strip()
 
     def remove_task_suffix(self, task: str) -> str:

@@ -151,11 +151,13 @@ def main(cfg : DictConfig) -> None:
 
     print(f'*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n\nWe are using the following model: {react_agent.llm.model_name}\n\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*')
     true_log += str(react_agent.llm.llm) + '\n'
-    first_idxs = [eval_idxs[0] for eval_idxs in eval_idx_list]
+    first_idxs = [eval_idxs[0] for eval_idxs in eval_idx_list if len(eval_idxs) > 0]
 
     # start evaluating
     for k, eval_idxs in enumerate(eval_idx_list):
         # syncing fold
+        if len(eval_idxs) < 1:
+            continue
         if k == starting_fold or start_processing:
             start_processing = True
             if not cfg.no_rules:
