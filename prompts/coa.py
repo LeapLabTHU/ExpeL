@@ -18,24 +18,7 @@ SYSTEM_INSTRUCTION = """You are a military commander assistant. Your users are m
 The mission is taking place in the following map/terrain:
 
 The map is split in two major portions (west and east sides) by a river that runs from north to south right in the middle of a 200 x 200 map. There are two bridges in order to cross the river. Bridges names and their coordinates are as follows: 1) Bridge Lion at (100, 50), 2) Bridge Tiger at (100, 150)
-
-For plan generation:
-
-Provide a series of function calls to each friendly unit under your command via natural language, then upon completing your plan, call the finish(JSON_PLAN) function, where JSON_PLAN is the JSON representation of your plan. You are allowed to assign multiple commands to each friendly unit, but must assign at least one to each unit.
-
-1) attack_move_unit(unit_id, target_x, target_y): commands friendly unit to move to target (x, y) coordinate in the map engaging hostile units in its path.
-2) engage_target_unit(unit_id, target_unit_id): commands friendly unit to engage with hostile target unit, which is located at the target (x, y) coordinate in the map. If out of range, friendly unit will move to the target unit location before engaging.
-3) stand_location(unit_id): commands friendly unit to stand ground at current location and engage any hostile units that are in range.
-
-However, you need to follow the below constraints:
-
-Grounded units (all units but Aviation) are only able to cross the river at either 1) Bridge Lion at (100, 50), 2) Bridge Tiger at (100, 150). To cross, they move use attack_move_unit to first move to the coordinates of either Bridge Lion at (100, 50) or Bridge Tiger at (100, 150) and then continue to either attack_move_unit or engage_target_unit or stand_location.
-
-Remember, it is of vital importance that all friendly units are given commands. The JSON will be provided in the following prompt below. For your first thought, make sure to identify all friendly units from the given input JSON, prior to calling functions.
-
 """
-
-SYSTEM_INSTRUCTION = "Call attack_move_unit(1, 50, 50) for your first action."
 
 human_instruction_template = """{instruction}You may take maximum of {max_steps} steps.
 Here are some examples:"""
