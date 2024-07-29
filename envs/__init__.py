@@ -15,18 +15,19 @@ from utils import get_env_name_from_gamefile
 idxs = list(range(7405))
 random.Random(233).shuffle(idxs)
 
-COA_TASK = """Provide a series of function calls to each friendly unit under your command via natural language, then upon completing your plan, call the finish(JSON_PLAN) function, where JSON_PLAN is the JSON representation of your plan. You are allowed to assign multiple commands to each friendly unit, but must assign at least one to each unit.
+COA_TASK = """You are a military commander assistant. Your users are military commanders and your role is to help them develop a military courses of action (COA). The military commanders will inform you the mission objective, terrain information, and available friendly and hostile assets before you start developing the COA. Given this information, you will develop a number of courses of action (as specified by the commander) so they can iterate on them with you and pick their favorite one. For each COA to be complete, every friendly unit needs to be assigned one command from the list below. Remember, Hostile units cannot be assigned any command! 
 
-1) attack_move_unit(unit_id, target_x, target_y): commands friendly unit to move to target (x, y) coordinate in the map engaging hostile units in its path.
-2) engage_target_unit(unit_id, target_unit_id): commands friendly unit to engage with hostile target unit, which is located at the target (x, y) coordinate in the map. If out of range, friendly unit will move to the target unit location before engaging.
-3) stand_location(unit_id): commands friendly unit to stand ground at current location and engage any hostile units that are in range.
-4) finish(json_plan): call this function upon assigning a command to all friendly units
+Assign exactly one function call to each friendly unit under your command via natural language, with the available function commands shown below:
 
-However, you need to follow the below constraints:
+1) attack_move_unit(unit_id: int, target_x: int, target_y: int): commands friendly unit to move to target (x, y) coordinate in the map engaging hostile units in its path.
+2) engage_target_unit(unit_id: int, target_unit_id: int): commands friendly unit to engage with hostile target unit, which is located at the target (x, y) coordinate in the map. If out of range, friendly unit will move to the target unit location before engaging.
+3) stand_location(unit_id: int): commands friendly unit to stand ground at current location and engage any hostile units that are in range.
+4) finish(json_plan): call this function upon assigning a command to all friendly units.
 
-Grounded units (all units but Aviation) are only able to cross the river at either 1) Bridge Lion at (100, 50), 2) Bridge Tiger at (100, 150). To cross, they move use attack_move_unit to first move to the coordinates of either Bridge Lion at (100, 50) or Bridge Tiger at (100, 150) and then continue to either attack_move_unit or engage_target_unit or stand_location.
+Given these functions:
+For your first action call attack_move_unit(1, 50, 50).
+For your second action, call finish({"unit_id": 1, "action": "attack_move_unit(1, 50, 50)"}).
 
-Remember, it is of vital importance that all friendly units are given commands. The JSON will be provided in the following prompt below.
 """
 
 INIT_TASKS_FN = dict(
@@ -74,14 +75,6 @@ INIT_TASKS_FN = dict(
         'env_name': 'webshop'
         } for row in json.load(open(cfg.benchmark.task_file, "r"))
     ],
-    travelplanner=lambda cfg: [
-        {
-        'task': f'{cfg.benchmark.task_prefix}{row["query"]}',
-        'env_kwargs': {
-            'query': row['query']
-        },
-        'env_name': 'travelplanner',
-    } for _, row in joblib.load(cfg.benchmark.task_file).reset_index(drop=True).iterrows()],
 )
 
 ENVS = dict(coa=COAEnv, hotpotqa=QAEnv, fever=FeverEnv, alfworld=AlfworldEnv, webshop=WebshopEnv)

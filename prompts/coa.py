@@ -13,12 +13,7 @@ FEWSHOTS = [""""""]
 
 REFLECTION_FEWSHOTS = [""""""]
 
-SYSTEM_INSTRUCTION = """You are a military commander assistant. Your users are military commanders and your role is to help them develop a military courses of action (COA). The military commanders will inform you the mission objective, terrain information, and available friendly and hostile assets before you start developing the COA. Given this information, you will develop a number of courses of action (as specified by the commander) so they can iterate on them with you and pick their favorite one. For each COA to be complete, every friendly unit needs to be assigned one command from the list below. Remember, Hostile units cannot be assigned any command! 
-
-The mission is taking place in the following map/terrain:
-
-The map is split in two major portions (west and east sides) by a river that runs from north to south right in the middle of a 200 x 200 map. There are two bridges in order to cross the river. Bridges names and their coordinates are as follows: 1) Bridge Lion at (100, 50), 2) Bridge Tiger at (100, 150)
-"""
+SYSTEM_INSTRUCTION = """"""
 
 human_instruction_template = """{instruction}You may take maximum of {max_steps} steps.
 Here are some examples:"""
@@ -33,6 +28,12 @@ SYSTEM_CRITIQUE_ALL_SUCCESS_EXISTING_RULES_INSTRUCTION = """"""
 SYSTEM_REFLECTION_INSTRUCTION = """"""
 
 def LLM_PARSER(llm_output, step: int, ai_message: bool) -> Tuple[ChatMessage, str, Dict[str, Any]]:
+
+    # print("\nCOURSE OF ACTION LLM_PARSER HAS BEEN ACCESSED")
+    # print(f"llm_output: {llm_output}")
+    # print(f"step: {step}")
+    # print(f"ai_message: {ai_message}\n")
+
     pattern = r'(?i)action\s*(?:\d+|)\s*(?::|)\s*'
     action_pattern = r'(?i)\w+\[[^\]]+(?:\]|)'
 
