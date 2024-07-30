@@ -365,6 +365,7 @@ class ExpelAgent(ReflectAgent):
             all_logs += '\n\n################ SUCCESS CRITIQUES ################\n'
         else:
             all_logs = loaded_log
+        all_success = []
         if loaded_dict is None or loaded_dict['critique_summary_section'] == 'compare':
             for training_id in training_ids:
                 all_success = []
@@ -423,7 +424,7 @@ class ExpelAgent(ReflectAgent):
         combined_history = dict(self.succeeded_trial_history)
         if isinstance(self.all_fewshots, list):
             for fewshot in self.all_fewshots:
-                if self.benchmark_name in ['hotpotqa', 'fever']:
+                if self.benchmark_name in ['coa', 'hotpotqa', 'fever']:
                     task = fewshot.split('\n')[0]
                     trajectory = '\n'.join(fewshot.split('\n')[1:])
                 elif self.benchmark_name == 'webshop':

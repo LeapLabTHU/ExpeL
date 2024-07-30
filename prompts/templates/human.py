@@ -72,6 +72,9 @@ HUMAN_CRITIQUES = dict(
 )
 
 RULE_TEMPLATE = dict(
+    coa=HumanMessagePromptTemplate.from_template("""The following are some experience you gather on a similar task of course-of-action (COA) planning. Use these as references to help you perform this task:
+{rules}
+"""),
     hotpotqa=HumanMessagePromptTemplate.from_template("""The following are some experience you gather on a similar task of question answering using Wikipedia API. Use these as references to help you perform this task:
 {rules}
 """),

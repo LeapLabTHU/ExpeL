@@ -1,47 +1,57 @@
 from typing import Callable, List
 
 from . import alfworld
-from . import hotpotQA, fever, webshop
+from . import coa, hotpotQA, fever, webshop, travelplanner
 from .templates.human import *
 from .templates.system import *
 
 FEWSHOTS = dict(
+    coa=coa.FEWSHOTS,
     hotpotqa=hotpotQA.FEWSHOTS,
     fever=fever.FEWSHOTS,
     alfworld=alfworld.FEWSHOTS,
     webshop=webshop.FEWSHOTS,
 )
 REFLECTION_FEWSHOTS = dict(
+    coa=coa.REFLECTION_FEWSHOTS,
     hotpotqa=hotpotQA.REFLECTION_FEWSHOTS,
     fever=None,#fever.REFLECTION_FEWSHOTS,
     alfworld=alfworld.REFLECTION_FEWSHOTS,
     webshop=webshop.REFLECTION_FEWSHOTS,
 )
 SYSTEM_INSTRUCTION = dict(
+    coa=coa.SYSTEM_INSTRUCTION,
     hotpotqa=hotpotQA.SYSTEM_INSTRUCTION,
     fever=fever.SYSTEM_INSTRUCTION,
     alfworld=alfworld.SYSTEM_INSTRUCTION,
     webshop=webshop.SYSTEM_INSTRUCTION,
 )
 SYSTEM_REFLECTION_INSTRUCTION = dict(
+    coa=coa.SYSTEM_REFLECTION_INSTRUCTION,
     hotpotqa=hotpotQA.SYSTEM_REFLECTION_INSTRUCTION,
     fever=None,#fever.SYSTEM_REFLECTION_INSTRUCTION,
     alfworld=None,#alfworld.SYSTEM_REFLECTION_INSTRUCTION,
     webshop=None,#webshop.SYSTEM_REFLECTION_INSTRUCTION,
 )
 HUMAN_INSTRUCTION = dict(
+    coa=coa.HUMAN_INSTRUCTION,
     hotpotqa=hotpotQA.HUMAN_INSTRUCTION,
     fever=fever.HUMAN_INSTRUCTION,
     alfworld=alfworld.HUMAN_INSTRUCTION,
     webshop=webshop.HUMAN_INSTRUCTION,
 )
 HUMAN_REFLECTION_INSTRUCTION = dict(
+    coa=coa.HUMAN_REFLECTION_INSTRUCTION,
     hotpotqa=hotpotQA.HUMAN_REFLECTION_INSTRUCTION,
     fever=None,
     alfworld=alfworld.HUMAN_REFLECTION_INSTRUCTION,
     webshop=webshop.HUMAN_REFLECTION_INSTRUCTION,
 )
 SYSTEM_CRITIQUE_INSTRUCTION = dict(
+    coa=dict(
+        compare_existing_rules=coa.SYSTEM_CRITIQUE_EXISTING_RULES_INSTRUCTION,
+        all_success_existing_rules=coa.SYSTEM_CRITIQUE_ALL_SUCCESS_EXISTING_RULES_INSTRUCTION,
+    ),
     hotpotqa=dict(
         compare_existing_rules=hotpotQA.SYSTEM_CRITIQUE_EXISTING_RULES_INSTRUCTION,
         all_success_existing_rules=hotpotQA.SYSTEM_CRITIQUE_ALL_SUCCESS_EXISTING_RULES_INSTRUCTION,
@@ -61,6 +71,7 @@ SYSTEM_CRITIQUE_INSTRUCTION = dict(
 )
 
 LLM_PARSER = dict(
+    coa=coa.LLM_PARSER,
     hotpotqa=hotpotQA.LLM_PARSER,
     # fever and hotpotQA has same format
     fever=hotpotQA.LLM_PARSER,
@@ -69,6 +80,7 @@ LLM_PARSER = dict(
 )
 
 OBSERVATION_FORMATTER = dict(
+    coa=coa.OBSERVATION_FORMATTER,
     hotpotqa=hotpotQA.OBSERVATION_FORMATTER,
     # fever and hotpotQA has same format
     fever=hotpotQA.OBSERVATION_FORMATTER,
@@ -77,6 +89,7 @@ OBSERVATION_FORMATTER = dict(
 )
 
 STEP_IDENTIFIER = dict(
+    coa=coa.STEP_IDENTIFIER,
     hotpotqa=hotpotQA.STEP_IDENTIFIER,
     # fever and hotpotQA has same format
     fever=hotpotQA.STEP_IDENTIFIER,
@@ -85,6 +98,7 @@ STEP_IDENTIFIER = dict(
 )
 
 CYCLER = dict(
+    coa=coa.CYCLER,
     hotpotqa=hotpotQA.CYCLER,
     fever=hotpotQA.CYCLER,
     # fever and hotpotQA has same format
@@ -92,6 +106,7 @@ CYCLER = dict(
     alfworld=alfworld.CYCLER,
 )
 REFLECTION_PREFIX = dict(
+    coa=coa.REFLECTION_PREFIX,
     hotpotqa=hotpotQA.REFLECTION_PREFIX,
     fever=hotpotQA.REFLECTION_PREFIX,
     alfworld=alfworld.REFLECTION_PREFIX,
@@ -99,6 +114,7 @@ REFLECTION_PREFIX = dict(
     webshop=webshop.REFLECTION_PREFIX,
 )
 PREVIOUS_TRIALS_FORMATTER=dict(
+    coa=coa.PREVIOUS_TRIALS_FORMATTER,
     hotpotqa=hotpotQA.PREVIOUS_TRIALS_FORMATTER,
     fever=hotpotQA.PREVIOUS_TRIALS_FORMATTER,
     alfworld=alfworld.PREVIOUS_TRIALS_FORMATTER,
@@ -107,6 +123,7 @@ PREVIOUS_TRIALS_FORMATTER=dict(
 )
 
 STEP_STRIPPER = dict(
+    coa=coa.STEP_STRIPPER,
     hotpotqa=hotpotQA.STEP_STRIPPER,
     fever=hotpotQA.STEP_STRIPPER,
     alfworld=alfworld.STEP_STRIPPER,

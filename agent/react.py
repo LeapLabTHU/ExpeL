@@ -53,7 +53,6 @@ class ReactAgent(BaseAgent):
         self.llm_parser = llm_parser
         self.observation_formatter = observation_formatter
         self._last_observation_history = None
-
         self.env = env(**self.tasks[self.task_idx]['env_kwargs'], max_steps=self.max_steps)
         self.env.reset()
         self.task = self.tasks[self.task_idx]['task']

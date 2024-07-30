@@ -4,6 +4,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# extra files for testing code
+extra/
+
+# data
+data/alfworld
+
 # C extensions
 *.so
 
