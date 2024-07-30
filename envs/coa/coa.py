@@ -2,7 +2,7 @@ import ast
 import json
 from typing import Tuple
 
-from .BattlefieldValidation import BattlefieldValidation
+from .battlefield_validation import BattlefieldValidation
 
 from envs.base import BaseEnv
 from utils import parse_action, EM
