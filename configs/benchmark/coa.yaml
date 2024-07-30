@@ -7,3 +7,8 @@ eval_configs:
   k_folds: 2
   k_folds_seed: 42
 ai_name: COA Planner
+
+# Store extra YAML variables for supporting Llama3 models
+llama_url: "localhost:11434"
+react_llm_name: "command-r-plus:104b-fp16"
+stream: True

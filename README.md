@@ -18,7 +18,8 @@ pip install -r requirements.txt
 
 1. Specify your input `.joblib` `task_file` in [`coa.yaml`](configs/benchmark/coa.yaml)
 2. Set your OpenAI API key as follows: `export OPENAI_API_KEY=[YOUR_KEY_HERE]`
-3. That's it... run any of the Python scripts in the root directory.
+3. Export your Llama URL as follows: `export LLAMA_URL=[YOUR_URL_HERE]`
+4. That's it... run any of the Python scripts in the root directory.
 
 ## **Table of Contents: 📖**
 
