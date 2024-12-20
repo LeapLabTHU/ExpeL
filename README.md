@@ -14,7 +14,7 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/LeapLabTHU/ExpeL)](https://github.com/LeapLabTHU/ExpeL/issues)
 
 ---
-### 🌐 $\cdot$ [Project Page](https://andrewzh112.github.io/#expel) &ensp; 📄 $\cdot$ [Paper](https://arxiv.org/pdf/2308.10144.pdf)
+### 🌐 $\cdot$ [Project Page](https://andrewzh112.github.io/expel) &ensp; 📄 $\cdot$ [Paper](https://arxiv.org/pdf/2308.10144.pdf)
 
 > "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E." - Tom Mitchell
 
